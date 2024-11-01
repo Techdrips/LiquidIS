@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        video, canvas {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .controls, .gallery {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 90%;
+            justify-content: center;
+        }
+        .photo {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .photo img {
+            max-width: 150px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .download-link {
+            text-decoration: none;
+            color: white;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .download-link:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Photos</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    
+    <div class="controls">
+        <button id="captureButton">Take Photo</button>
+    </div>
+
+    <h2>Your Gallery</h2>
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('captureButton');
+        const gallery = document.getElementById('gallery');
+
+        // Request camera access
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                alert("Camera access denied or not available.");
+                console.error("Error accessing camera:", error);
+            });
+
+        // Capture photo when button is clicked
+        captureButton.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Convert the canvas to a data URL
+            const dataURL = canvas.toDataURL('image/png');
+            
+            // Create a new photo element
+            const photoContainer = document.createElement('div');
+            photoContainer.classList.add('photo');
+
+            const img = document.createElement('img');
+            img.src = dataURL;
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = dataURL;
+            downloadLink.download = `photo_${Date.now()}.png`;
+            downloadLink.textContent = 'Download';
+            downloadLink.classList.add('download-link');
+
+            // Append the image and download link to the photo container
+            photoContainer.appendChild(img);
+            photoContainer.appendChild(downloadLink);
+
+            // Add the photo to the gallery
+            gallery.appendChild(photoContainer);
+        });
+    </script>
+</body>
+</html>
