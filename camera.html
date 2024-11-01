@@ -4,9 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            height: 100vh;
+            margin: 0;
+        }
+        video, canvas {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Camera</h1>
-    <p>Here you can do all the photos you want!</p>
+    <h1>Camera</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    <div class="controls">
+        <button id="captureButton">Take Photo</button>
+        <button id="downloadButton" style="display: none;">Download Photo</button>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('captureButton');
+        const downloadButton = document.getElementById('downloadButton');
+
+        // Request camera access
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                alert("Camera access denied or not available.");
+                console.error("Error accessing camera:", error);
+            });
+
+        // Capture photo when button is clicked
+        captureButton.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Show the download button and enable download functionality
+            downloadButton.style.display = 'inline';
+            downloadButton.href = canvas.toDataURL('image/png');
+            downloadButton.download = 'photo.png';
+        });
+    </script>
 </body>
 </html>
