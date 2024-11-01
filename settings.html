@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        /* Reset basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-image 0.5s ease;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        /* Wallpaper Section */
+        .wallpaper-options button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .wallpaper-options button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#wallpaper">Wallpaper</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Profile Section -->
+        <section id="profile">
+            <h2>Profile Settings</h2>
+            <p>Here you can adjust your profile settings.</p>
+        </section>
+
+        <!-- Notifications Section -->
+        <section id="notifications">
+            <h2>Notification Settings</h2>
+            <p>Configure your notification preferences here.</p>
+        </section>
+
+        <!-- Wallpaper Section -->
+        <section id="wallpaper">
+            <h2>Wallpaper Settings</h2>
+            <p>Choose a wallpaper for your background:</p>
+            <div class="wallpaper-options">
+                <button onclick="changeWallpaper('https://example.com/wallpaper1.jpg')">Wallpaper 1</button>
+                <button onclick="changeWallpaper('https://example.com/wallpaper2.jpg')">Wallpaper 2</button>
+                <button onclick="changeWallpaper('https://example.com/wallpaper3.jpg')">Wallpaper 3</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function changeWallpaper(wallpaper) {
+            document.body.style.backgroundImage = `url(${wallpaper})`;
+        }
+    </script>
+</body>
+</html>
