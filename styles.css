@@ -1,0 +1,43 @@
+/* styles.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-image: url('background.jpg'); /* Replace with the path to your background image */
+    background-size: cover;
+    background-position: center;
+}
+
+.app-container {
+    display: flex;
+    gap: 20px;
+}
+
+.app-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #4CAF50; /* Icon background color */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 15px; /* Rounded, app-icon style */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for the app icon effect */
+    font-weight: bold;
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.app-icon:hover {
+    transform: scale(1.1);
+}
